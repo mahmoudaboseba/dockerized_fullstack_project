@@ -1,0 +1,31 @@
+services:
+  Frontend:
+    image: mahmoud180/frontend:v1
+    container_name: Frontend
+    networks:
+      - frontend
+    depends_on:
+      - backend
+    ports:
+      - "5000:80"
+  backend:
+    image: mahmoud180/backend:v1
+    container_name: backend
+    networks:
+      - backend
+    depends_on:
+      - db
+  db:
+    image: mahmoud180/db:v1
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    container_name: db
+    volumes:
+      - vv:/var/lib/mysql
+volumes:
+  vv: {}
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
